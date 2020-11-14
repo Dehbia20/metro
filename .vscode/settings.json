@@ -1,0 +1,9 @@
+{
+  "terminal.integrated.automationShell.linux": "C:\\Program Files\\Git\\git-bash.exe",
+  "terminal.integrated.shell.windows": "C:\\WINDOWS\\system32\\cmd.exe",
+  "terminal.integrated.automationShell.osx": "C:\\WINDOWS\\system32\\cmd.exe",
+  "terminal.integrated.automationShell.windows": "C:\\WINDOWS\\system32\\cmd.exe",
+  "task.saveBeforeRun": "never",
+  "task.slowProviderWarning": true,
+  "terminal.integrated.shell.linux": "C:\\WINDOWS\\system32\\cmd.exe"
+}

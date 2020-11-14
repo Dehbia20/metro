@@ -1,0 +1,36 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "shell",
+      "label": "Test Build",
+      "command": "gcc.exe",
+      "args": [
+        "-g",
+        "${file}",
+        "-o",
+        "${workspaceFolder}\\debug\\${fileBasenameNoExtension}.exe",
+        "-I",
+        "${workspaceFolder}\\sdk\\SDL2\\include",
+        "-L",
+        "${workspaceFolder}\\sdk\\SDL2\\lib",
+        "-lmingw32",
+        "",
+        "-lSDL2main",
+        "",
+        "-lSDL2"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": {
+        "base": "$gcc",
+        "fileLocation": "absolute"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}

@@ -2,4 +2,6 @@
 *.d
 *.exe
 *.o
-build/*.dll
+build/*
+res/*
+debug/*

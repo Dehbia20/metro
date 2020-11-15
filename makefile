@@ -1,14 +1,16 @@
 CC=gcc
 CFLAGS = -Wall -I sdk/SDL2/include # compilation opts.
 LDFLAGS = -L sdk/SDL2/lib -lmingw32 -lSDL2main -lSDL2  # link options
+SRC=$(wildcard src/*.c) $(wildcard src/core/*.c) $(wildcard src/ui/*.c)
+OBJ=$(SRC:.c=.o)
+HDR=$(wildcard src/ui/*.h) $(wildcard src/core/*.h) $(wildcard src/ui/*.h)
 
+metro : $(OBJ)		  # create an executable file under build of
+	$(CC) -o  $@  $^  $(LDFLAGS) 
 
-metro : main.o			  # create an executable file under build of
-	$(CC) ./build/main.o -o ./build/metro $(LDFLAGS)
+main.o: $(HDR)     
+%.o: %.c
+	$(CC) $(CFLAGS) -c  $^ -o $@
 
-main.o : src/main.c       # compile main.c`.
-	$(CC) $(CFLAGS) -c ./src/main.c -o ./build/main.o
-
-clean:
-	rm -f ./build/metro.exe
-	rm -f ./build/main.o
+debug: ${OBJ}
+	$(CC) -g -o  $@  $^  $(LDFLAGS)

@@ -5,7 +5,7 @@
       "name": "Test Build",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}\\debug\\${fileBasenameNoExtension}.exe",
+      "program": "${workspaceFolder}\\debug\\debug.exe",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
@@ -20,7 +20,6 @@
           "ignoreFailures": true
         }
       ],
-      "preLaunchTask": "Test Build",
       "logging": {
         "trace": true,
         "traceResponse": true,

@@ -1,0 +1,1 @@
+int read_matrix(int rows, int (*matrix)[60], const char *filename);

@@ -10,29 +10,23 @@
 
 void doInit(Config *cfg);
 
-void read()
-{
-    int matrix[20][60];
-    printf("Salut ! ");
-    int c = read_matrix(20, matrix, "./assets/map");
-    printf("code retour %1d", c);
-}
-
 int main(int argc, char **argv)
 {
     Config *cfg = (struct Config *)malloc(sizeof(struct Config));
     doInit(cfg);
-    read();
-    SDL_Surface *screen = NULL, *menu = NULL;
-    show_screen(screen);
-    start(cfg);
+    SDL_Window *screen = NULL, *menu = NULL;
+    SDL_Renderer *renderer;
+    show_screen(&screen, &renderer);
+    start(cfg, &screen, renderer);
     quit(cfg, screen, menu);
     return 0;
 }
 
 void doInit(Config *cfg)
 {
-    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER);
+    int i = SDL_Init(SDL_INIT_VIDEO);
+    if (i < 0)
+        printf("caca");
     cfg->minuteAsSecond = MINUTE;
     cfg->mode = onlyTrain;
 }

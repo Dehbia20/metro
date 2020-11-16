@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include "../core/constants.h"
 #include "../core/structure.h"
-#include "../core/map.h"
+#include "../core/sprite_map.h"
 #include "helper.h"
 
 void show_screen(SDL_Surface **screen, SDL_Renderer **renderer)
@@ -24,7 +24,7 @@ void load_sprites(Sprite **sprites, SDL_Renderer *renderer)
     push(sprites, "ground", IMG_LoadTexture(renderer, "./assets/ground.png"));
     push(sprites, "floor", IMG_LoadTexture(renderer, "./assets/floor.png"));
     push(sprites, "bench", IMG_LoadTexture(renderer, "./assets/bench.png"));
-    printf("\n sprites size : %d", size(*sprites));
+    printf("\n sprites size : %d", sprite_size(*sprites));
 }
 
 void draw_map(Sprite *sprites, SDL_Window **window, int matrix[20][60], SDL_Renderer *renderer)

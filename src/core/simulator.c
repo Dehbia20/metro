@@ -1,20 +1,32 @@
-
+#define HAVE_STRUCT_TIMESPEC
+#include <pthread.h>
 #include "structure.h"
 #include "constants.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <SDL.h>
 #include "matrix.h"
-#include "map.h"
+#include "sprite_map.h"
+#include "process.h"
+#include "context.h"
 #include "../ui/gui.h"
+
 void start(Config *cfg, SDL_Window **window, SDL_Renderer *renderer)
 {
     int runningFlag = CONTINUE;
     int base_matrix[20][60];
     Sprite *sprites = NULL;
+    Node *train_queue = NULL;
+    pthread_t tid; // timer + signal propagation handeling
+
     read_matrix(20, base_matrix, "./assets/map");
     load_sprites(&sprites, renderer);
     draw_map(sprites, window, base_matrix, renderer);
+
+    persist(&train_queue);
+    // start background task
+    pthread_create(&tid, NULL, start_background, &train_queue);
+
     do
     {
         SDL_Event e;
@@ -28,6 +40,7 @@ void start(Config *cfg, SDL_Window **window, SDL_Renderer *renderer)
 
     } while (runningFlag);
     free_sprites(sprites);
+    pthread_cancel(tid);
 }
 
 void quit(Config *cfg, SDL_Surface *screen, SDL_Surface *menu)

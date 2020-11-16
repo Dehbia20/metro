@@ -1,5 +1,6 @@
 #include "../core/structure.h"
-#include "../core/map.h"
+#include "../core/sprite_map.h"
+#include <stdio.h>
 #include "../core/constants.h"
 
 char *convert(int id)

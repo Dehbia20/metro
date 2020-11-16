@@ -56,7 +56,7 @@ void push(Sprite **node, char *key, SDL_Surface *surface)
     }
 }
 
-int size(Sprite *node)
+int sprite_size(Sprite *node)
 {
     if (node == NULL)
     {

@@ -42,3 +42,4 @@ echo "Copying resource..."
 copy_mv_res "./metro.exe" "mv" "./build";
 copy_mv_res "./assets" "cp" "./build/";
 copy_mv_res "./sdk/SDL2/bin" "cp" "./build" "flat";
+copy_mv_res "./sdk/pthread/bin" "cp" "./build" "flat";

@@ -17,4 +17,17 @@ typedef struct Sprite
     struct Sprite *next;
 } Sprite;
 
+typedef struct Train
+{
+    char *id;
+    int remainingTime;
+    int direction;
+} Train;
+
+typedef struct Node
+{
+    void *data;
+    struct Node *next;
+} Node;
+
 #endif

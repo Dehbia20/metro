@@ -1,6 +1,6 @@
 #ifndef Constants
 #define Constants
-#define MINUTE 5             // 1 minute in simulator equals to 5 seconds
+#define MINUTE_AS_SEC 5      // 1 minute in simulator equals to 5 seconds
 #define STOP 0               // flag that stop infinte loop
 #define CONTINUE 1           // flag that keeps infinite loop running
 #define CELL_H 20            // height of one cell
@@ -11,5 +11,15 @@ enum Mode
 {
     onlyTrain,
     TrainWithTraveler
+};
+enum Train_Direction
+{
+    RIGHT,
+    LEFT
+};
+enum Signal_Type
+{
+    UPDATE_DISPLAYED_TIME,
+    SHOW_TRAIN
 };
 #endif

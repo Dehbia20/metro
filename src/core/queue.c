@@ -4,10 +4,8 @@
 
 void push_last(Node **head, void *data)
 {
-    printf("\n ajout dun noeud %p %p", head, *head);
     if (*head == NULL)
     {
-        printf("\n adding first to queue");
         *head = (Node *)malloc(sizeof(Node));
         (*head)->data = data;
         (*head)->next = NULL;
@@ -17,7 +15,7 @@ void push_last(Node **head, void *data)
         Node **actual = head;
         while ((*actual)->next != NULL)
         {
-            actual = (*actual)->next;
+            actual = &(*actual)->next;
         }
         (*actual)->next = (Node *)malloc(sizeof(Node));
         (*actual)->next->data = data;
@@ -86,19 +84,25 @@ int size(Node **head)
     return i;
 }
 
-Node **get(Node **head, int index)
+void *get(Node *head, int index)
 {
-    if (head == NULL || index >= size(head))
+    printf("\nbordel_1 !! %p", head);
+    if (head == NULL)
     {
+        printf("\nbordel_2 !! %d");
+
         return NULL;
     }
 
     int i = 0;
-    Node *actual = *head;
+
+    Node *actual = head;
     while (actual != NULL && i != index)
     {
-        i++;
         actual = actual->next;
+
+        ++i;
     }
-    return &actual;
+    printf("\n####-----%d", i);
+    return actual->data;
 }

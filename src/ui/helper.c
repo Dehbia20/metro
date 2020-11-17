@@ -17,6 +17,10 @@ char *convert(int id)
         return "bench";
     case 5:
         return "ground";
+    case 6:
+        return "train_l";
+    case 7:
+        return "train_r";
     default:
         return NULL;
         ;
@@ -31,10 +35,6 @@ Sprite *calc_surface(Sprite *sprites, int id)
         return NULL;
     }
     Sprite *s = find_by_key(sprites, key);
-    if (s != NULL)
-    {
-        printf("\n%s, %p", s->key, s->surface);
-    }
     return s;
 }
 
@@ -46,4 +46,16 @@ int calc_pos_y(int i)
 int calc_pos_x(int j)
 {
     return CELL_W * j;
+}
+
+int calc_col_idx(int j, int l, enum Train_Direction dir)
+{
+    if (dir == LEFT)
+    {
+        return j - l;
+    }
+    else
+    {
+        return j + l;
+    }
 }

@@ -4,4 +4,4 @@ void *pop(Node **head);
 void free_queue(Node **head);
 void *first(Node **head);
 int size(Node *head);
-Node **get(Node **head, int index);
+void *get(Node *head, int index);

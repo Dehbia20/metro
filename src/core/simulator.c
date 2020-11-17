@@ -19,11 +19,16 @@ void start(Config *cfg, SDL_Window **window, SDL_Renderer *renderer)
     Node *train_queue = NULL;
     pthread_t tid; // timer + signal propagation handeling
 
+    // read map + load textures
     read_matrix(20, base_matrix, "./assets/map");
     load_sprites(&sprites, renderer);
     draw_map(sprites, window, base_matrix, renderer);
 
-    persist(&train_queue);
+    // saving cotext
+    set_tq(&train_queue);
+    set_sp(sprites);
+    set_rd(renderer);
+
     // start background task
     pthread_create(&tid, NULL, start_background, &train_queue);
 

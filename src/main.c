@@ -1,6 +1,7 @@
 #include <SDL.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "core/structure.h"
 #include "core/constants.h"
 #include "core/simulator.h"
@@ -13,6 +14,9 @@ void doInit(Config *cfg);
 int main(int argc, char **argv)
 {
     Config *cfg = (struct Config *)malloc(sizeof(struct Config));
+    time_t *t;
+    srand(time(t));
+
     doInit(cfg);
     SDL_Window *screen = NULL, *menu = NULL;
     SDL_Renderer *renderer;
@@ -25,8 +29,6 @@ int main(int argc, char **argv)
 void doInit(Config *cfg)
 {
     int i = SDL_Init(SDL_INIT_VIDEO);
-    if (i < 0)
-        printf("caca");
-    cfg->minuteAsSecond = MINUTE;
+    cfg->minuteAsSecond = MINUTE_AS_SEC;
     cfg->mode = onlyTrain;
 }

@@ -15,13 +15,10 @@ Sprite *find_by_key(Sprite *node, char *searched)
         return NULL;
     }
     Sprite *actual = node;
-    printf("\n");
     do
     {
-        printf("actual %s - searched: %s", actual->key, searched);
         if (strcmp(actual->key, searched) == 0)
         {
-            printf("#####found!!!");
             return actual;
         }
         actual = actual->next;
@@ -38,15 +35,12 @@ void push(Sprite **node, char *key, SDL_Surface *surface)
         (*node)->key = key;
         (*node)->surface = surface;
         (*node)->next = NULL;
-        printf("\nadded first %s", (*node)->key);
     }
     else
     {
-        printf("\nkey - else : %s\n", key);
         Sprite **actual = node;
         while ((*actual)->next != NULL)
         {
-            printf("####### actual key: %s, received key : %s", (*actual)->key, key);
             actual = &((*actual)->next);
         }
         (*actual)->next = (Sprite *)malloc(sizeof(Sprite));

@@ -16,8 +16,9 @@ void start(Config *cfg, SDL_Window **window, SDL_Renderer *renderer)
     int runningFlag = CONTINUE;
     int base_matrix[20][60];
     Sprite *sprites = NULL;
-    Node *train_queue = NULL;
-    pthread_t tid; // timer + signal propagation handeling
+    Node *train_queue1 = NULL;
+    Node *train_queue2 = NULL;
+    pthread_t tid1, tid2; // timer + signal propagation handeling
 
     // read map + load textures
     read_matrix(20, base_matrix, "./assets/map");
@@ -25,13 +26,21 @@ void start(Config *cfg, SDL_Window **window, SDL_Renderer *renderer)
     draw_map(sprites, window, base_matrix, renderer);
 
     // saving cotext
-    set_tq(&train_queue);
+    set_tq1(&train_queue1);
+    set_tq2(&train_queue2);
     set_sp(sprites);
     set_rd(renderer);
 
     // start background task
-    pthread_create(&tid, NULL, start_background, &train_queue);
+    Bg_data *lt_bgTask = (Bg_data *)malloc(sizeof(Bg_data));
+    lt_bgTask->dir = LEFT;
+    lt_bgTask->train_q = &train_queue1;
+    Bg_data *rt_bgTask = (Bg_data *)malloc(sizeof(Bg_data));
+    rt_bgTask->dir = RIGHT;
+    rt_bgTask->train_q = &train_queue2;
 
+    pthread_create(&tid1, NULL, start_background, lt_bgTask);
+    pthread_create(&tid2, NULL, start_background, rt_bgTask);
     do
     {
         SDL_Event e;
@@ -45,7 +54,8 @@ void start(Config *cfg, SDL_Window **window, SDL_Renderer *renderer)
 
     } while (runningFlag);
     free_sprites(sprites);
-    pthread_cancel(tid);
+    pthread_cancel(tid1);
+    pthread_cancel(tid2);
 }
 
 void quit(Config *cfg, SDL_Surface *screen, SDL_Surface *menu)

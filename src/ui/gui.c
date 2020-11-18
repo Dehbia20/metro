@@ -69,19 +69,19 @@ void trigger_train(Train *t, Sprite *sprites, SDL_Renderer *renderer)
     {
         i = 11; // row 11
         j = 59; // last case (first case from the left)
-        k = 20; // stop at column 20
+        k = 44; // stop at column 20
     }
     else
     {
         i = 8;  // row 8
         j = 0;  // start at begining
-        k = 39; // stops at column 39
+        k = 25; // stops at column 39
     }
 
     SDL_Rect rect, b_rect;
 
-    rect.w = 50;
-    rect.h = CELL_W;
+    rect.w = 40;
+    rect.h = CELL_H;
     rect.y = calc_pos_y(i);
 
     b_rect.w = CELL_W;

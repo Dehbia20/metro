@@ -30,4 +30,9 @@ typedef struct Node
     struct Node *next;
 } Node;
 
+typedef struct Bg_data
+{
+    struct Node **train_q;
+    enum Train_Direction dir;
+} Bg_data;
 #endif

@@ -29,14 +29,14 @@ void push_last(Node **head, void *data)
 */
 void *pop(Node **head)
 {
-    if (*head == NULL)
+    if (head == NULL)
     {
         return NULL;
     }
     void *data = (*head)->data;
-    Node **oldHead = head;
-    head = &((*head)->next);
-    free(*oldHead);
+    printf("\n ancienne adresse %p", *head);
+    *head = (*head)->next;
+    printf("\n new adresse %p", *head);
     return data;
 }
 

@@ -1,1 +1,1 @@
-void handle_ShowingTrain();
+void handle_ShowingTrain(enum Train_Direction *dir);

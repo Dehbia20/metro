@@ -18,9 +18,11 @@ char *convert(int id)
     case 5:
         return "ground";
     case 6:
-        return "train_l";
+        return "t_l1";
     case 7:
-        return "train_r";
+        return "t_b";
+    case 8:
+        return "t_r1";
     default:
         return NULL;
         ;
@@ -58,4 +60,9 @@ int calc_col_idx(int j, int l, enum Train_Direction dir)
     {
         return j + l;
     }
+}
+
+int min(int n, int m)
+{
+    return n <= m ? n : m;
 }

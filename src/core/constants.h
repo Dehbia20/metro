@@ -9,6 +9,7 @@
 #define WINDOW_W CELL_W * 60 // window global width
 #define DEBUG 1              // enable / disable debug trace log
 #define FRAME_U_SLEEP 50     // frame is updated each 50 ms => 20 frames / seconds
+#define N_TRAIN_CELL 20      // number of used cell to display train
 enum Mode
 {
     onlyTrain,
@@ -28,5 +29,10 @@ enum Separtor
 {
     SHOW,
     HIDE
+};
+enum T_animation
+{
+    ARRIVAL,
+    DEPARTURE
 };
 #endif

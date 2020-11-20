@@ -29,7 +29,7 @@ static char *rand_string(int size)
     return str;
 }
 
-void send_signal(enum Signal_Type sig, enum Train_Direction dir)
+void send_signal(enum Signal_Type sig, enum Train_Direction dir, Node **head)
 {
     pthread_t tid;
     switch (sig)
@@ -39,6 +39,7 @@ void send_signal(enum Signal_Type sig, enum Train_Direction dir)
 
     case SHOW_TRAIN:
         handle_ShowingTrain(&dir);
+        generate_new(head, dir);
         break;
     default:
         // unkown : do nothing
@@ -73,12 +74,11 @@ void update_remainig_and_signal(Node **train_queue, enum Train_Direction dir)
             if (t->remainingTime <= 0)
             {
                 printf("time ellapsed !");
-                send_signal(SHOW_TRAIN, t->direction);
-                //generate_new(train_queue);
+                send_signal(SHOW_TRAIN, t->direction, train_queue);
             }
         }
     }
-    send_signal(UPDATE_DISPLAYED_TIME, LEFT);
+    send_signal(UPDATE_DISPLAYED_TIME, LEFT, NULL);
 }
 void *start_background(Bg_data *data)
 {

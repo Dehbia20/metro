@@ -23,9 +23,16 @@ char *convert(int id)
         return "t_b";
     case 8:
         return "t_r1";
+    case 9:
+        return "ghost_1";
+    case 10:
+        return "ghost_2";
+    case 11:
+        return "ghost_3";
+    case 12:
+        return "ghost_4";
     default:
         return NULL;
-        ;
     }
 }
 

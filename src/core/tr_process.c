@@ -54,7 +54,6 @@ void generate_new(Node **head, enum Train_Direction dir)
     t->remainingTime = (i + 1) * 2 * MINUTE_AS_SEC;
     t->direction = dir;
     char seq[80];
-    printf("toto");
     sprintf(seq, "Generated new train with id: %s - remaining time: %d", t->id, t->remainingTime);
     _dp(seq);
     push_last(head, t);
@@ -73,7 +72,7 @@ void update_remainig_and_signal(Node **train_queue, enum Train_Direction dir)
             dp_train(t);
             if (t->remainingTime <= 0)
             {
-                printf("time ellapsed !");
+                _dp("time ellapsed !");
                 send_signal(SHOW_TRAIN, t->direction, train_queue);
             }
         }
@@ -84,11 +83,6 @@ void *start_background(Bg_data *data)
 {
     _dp("Starting background task...");
     Node **head = data->train_q;
-    printf("pas de soucis");
-    if (head == NULL)
-    {
-        printf("%d", data->dir);
-    }
     generate_new(head, data->dir);
     generate_new(head, data->dir);
     while (1)

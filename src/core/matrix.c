@@ -17,6 +17,5 @@ int read_matrix(int rows, int matrix[20][60], const char *filename)
         }
     }
     fclose(fp);
-    printf("before out");
     return 0;
 }

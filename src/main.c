@@ -17,9 +17,10 @@ int main(int argc, char **argv)
     time_t *t;
     srand(time(t));
 
-    doInit(cfg);
     SDL_Window *screen = NULL, *menu = NULL;
     SDL_Renderer *renderer;
+    doInit(cfg);
+
     show_screen(&screen, &renderer);
     start(cfg, &screen, renderer);
     quit(cfg, screen, menu);
@@ -29,6 +30,9 @@ int main(int argc, char **argv)
 void doInit(Config *cfg)
 {
     int i = SDL_Init(SDL_INIT_VIDEO);
-    cfg->minuteAsSecond = MINUTE_AS_SEC;
-    cfg->mode = onlyTrain;
+    cfg->minuteAsSecond = MINUTE_AS_SEC;          // 1 min (in game) = 5 s
+    cfg->mode = ONLY_TRAIN;                       // start in mode only train
+    cfg->generationPauseTime = TV_GEN_PAUSE_TIME; // a passenger is generated initially each 50 ms
+    cfg->trace = NONE;                            // disable trace at starting
+    cfg->trainStopped = 0;
 }

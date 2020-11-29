@@ -1,17 +1,21 @@
 #include <stdio.h>
 #include "structure.h"
 #include "constants.h"
+#include "context.h"
 #include <stdarg.h>
-
+#include <pthread.h>
 void _dp(char *seq)
 {
-    if (DEBUG)
+    pthread_mutex_t mutex = get_cfgMutex();
+    pthread_mutex_lock(mutex);
+    Config *cfg = get_cfg();
+    if (cfg->trace == DEBUG)
     {
-        printf("\n~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
         printf(seq);
-        printf("\n~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
+    pthread_mutex_unlock(mutex);
 }
+
 void dp_train(void *v)
 {
     Train *t = (Train *)v;

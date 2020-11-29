@@ -7,7 +7,10 @@
 typedef struct Config
 {
     int minuteAsSecond;
+    int generationPauseTime;
+    int trainStopped;
     enum Mode mode;
+    enum Trace trace;
 } Config;
 
 typedef struct Sprite
@@ -35,4 +38,20 @@ typedef struct Bg_data
     struct Node **train_q;
     enum Train_Direction dir;
 } Bg_data;
+
+typedef struct Position
+{
+    int i;
+    int j;
+} Position;
+
+typedef struct Passenger
+{
+    Position *prevPos;
+    Position *pos;
+    Position *destPos;
+    enum Train_Direction dir;
+    int idRes;
+    enum DestStatus destStatus;
+} Passenger;
 #endif

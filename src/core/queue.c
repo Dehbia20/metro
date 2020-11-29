@@ -1,12 +1,14 @@
 #include "structure.h"
 #include <stdlib.h>
 #include <stdio.h>
-
+Node *q_remove(Node **head, int n);
 void push_last(Node **head, void *data)
 {
     if (*head == NULL)
     {
+
         *head = (Node *)malloc(sizeof(Node));
+
         (*head)->data = data;
         (*head)->next = NULL;
     }
@@ -29,14 +31,12 @@ void push_last(Node **head, void *data)
 */
 void *pop(Node **head)
 {
-    if (head == NULL)
+    if (head == NULL || head == NULL)
     {
         return NULL;
     }
     void *data = (*head)->data;
-    printf("\n ancienne adresse %p", *head);
     *head = (*head)->next;
-    printf("\n new adresse %p", *head);
     return data;
 }
 
@@ -50,30 +50,29 @@ void *first(Node **head)
 }
 
 /*
-  free allocated memory to a queue, when it should collected
+  free allocated memory to a queue, when it should be collected
 */
 void free_queue(Node **head)
 {
-    if (*head == NULL)
+    if (head == NULL || *head == NULL)
     {
         // nil pointer, no need to free
         return;
     }
-
-    while (*head != NULL)
+    int sz = size(head);
+    for (int i = 0; i < sz; i++)
     {
-        Node **old = head;
-        head = &(*head)->next;
-        free(*old);
+        q_remove(head, i);
     }
 }
 
 int size(Node **head)
 {
-    if (*head == NULL)
+    if (head == NULL || *head == NULL)
     {
         return 0;
     }
+
     int i = 0;
     Node *actual = *head;
     while (actual != NULL)
@@ -86,11 +85,8 @@ int size(Node **head)
 
 void *get(Node *head, int index)
 {
-    printf("\nbordel_1 !! %p", head);
     if (head == NULL)
     {
-        printf("\nbordel_2 !! %d");
-
         return NULL;
     }
 
@@ -103,6 +99,34 @@ void *get(Node *head, int index)
 
         ++i;
     }
-    printf("\n####-----%d", i);
-    return actual->data;
+    if (actual != NULL)
+    {
+        return actual->data;
+    }
+    return NULL;
+}
+
+Node *q_remove(Node **head, int n)
+{
+    int retval = -1;
+    Node *current = *head;
+    Node *temp_node = NULL;
+
+    if (n == 0)
+    {
+        return pop(head);
+    }
+
+    for (int i = 0; i < n - 1; i++)
+    {
+        if (current->next == NULL)
+        {
+            return -1;
+        }
+        current = current->next;
+    }
+
+    temp_node = current->next;
+    current->next = temp_node->next;
+    free(temp_node);
 }

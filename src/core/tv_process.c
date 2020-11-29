@@ -29,20 +29,22 @@ int search_pIdxByPos(Position *p);
 void start_generation(Node **passengers)
 {
     pthread_mutex_t mutex = get_cfgMutex();
-
-    while (1)
+    enum Mode mode = TRAIN_TRAVELLER;
+    do
     {
-        if (size(passengers) < MAX_WAITING_PASSENGER)
+        if (size(passengers) < MAX_WAITING_PASSENGER && mode == TRAIN_TRAVELLER)
         {
+
             gen_andPush(passengers);
         }
         consume(passengers);
         pthread_mutex_lock(mutex);
         Config *cfg = get_cfg();
+        mode = cfg->mode;
         int pause = cfg->generationPauseTime * 1000;
         pthread_mutex_unlock(mutex);
         usleep(pause);
-    }
+    } while (mode == TRAIN_TRAVELLER || size(passengers) > 0);
 }
 
 void consume(Node **head)
@@ -74,7 +76,7 @@ void gen_andPush(Node **head)
     int pos_y, pos_x;
 
     pos_y = dir == LEFT ? 16 : 3;
-    pos_x = ((7 * gate) + gate + 1) * CELL_W;
+    pos_x = (((7 * gate) + gate) * CELL_W);
 
     Position *src = (Position *)malloc(sizeof(Position));
     src->i = pos_x;

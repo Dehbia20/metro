@@ -59,3 +59,12 @@ int handle_takeTrain(Passenger *p)
     }
     return 0;
 }
+
+int handle_reset(Passenger *p)
+{
+    if (p != NULL)
+    {
+        // take train remove passenger from screen (handle the need of reseting passenger)
+        take_train(p, get_sp(), get_rd());
+    }
+}

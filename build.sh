@@ -36,6 +36,7 @@ function copy_mv_res() {
 
 echo "Cleanup build artifcats..."
 rm -Rf ./build/*;
+find ./src -name "*.o" -exec rm -f {} +;
 echo "Making runnable file 'metro.exe'..."
 make metro -f makefile;
 echo "Copying resource..."

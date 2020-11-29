@@ -24,7 +24,6 @@ void start(Config *cfg, SDL_Window **window, SDL_Renderer *renderer)
     Node *train_queue2 = NULL;           // train queue (right to left)
     Node *passengers = NULL;             // passenger queue
     Node *filledPos = NULL;              // queue of filled position
-    Node *filledPosBuffer = NULL;        // buffer where node to desallocate in next iteration are stored
     pthread_t tid1, tid2;                // background task for train generation and animation
     pthread_t tid3;                      // background task for travelers generation
     pthread_mutex_t rd_mutex, cfg_mutex; // renderer mutex & config mutex
@@ -45,7 +44,6 @@ void start(Config *cfg, SDL_Window **window, SDL_Renderer *renderer)
     set_psngr(&passengers);
     set_rdMutex(&rd_mutex);
     set_fp(&filledPos);
-    set_fpb(&filledPosBuffer);
 
     _dp("context saved...");
 
@@ -78,16 +76,15 @@ void start(Config *cfg, SDL_Window **window, SDL_Renderer *renderer)
 
                     if (cfg->mode == TRAIN_TRAVELLER)
                     {
+                        // thread will terminate itself alone
                         cfg->mode = ONLY_TRAIN;
-                        _dp("Destroying generation process");
-                        pthread_cancel(tid3);
                     }
                     pthread_mutex_unlock(&cfg_mutex);
 
                     break;
                     // enable train with passenger mode
                 case SDLK_p:
-                    //pthread_mutex_lock(&cfg_mutex);
+                    pthread_mutex_lock(&cfg_mutex);
 
                     if (cfg->mode == ONLY_TRAIN)
                     {
@@ -96,7 +93,7 @@ void start(Config *cfg, SDL_Window **window, SDL_Renderer *renderer)
                         _dp("\nstarting generation process");
                         pthread_create(&tid3, NULL, start_generation, &passengers);
                     }
-                    //pthread_mutex_unlock(&cfg_mutex);
+                    pthread_mutex_unlock(&cfg_mutex);
 
                     break;
                     // enable / disable trace
@@ -104,18 +101,18 @@ void start(Config *cfg, SDL_Window **window, SDL_Renderer *renderer)
                     cfg->trace = cfg->trace == NONE ? DEBUG : NONE;
                     break;
                 case SDLK_a: // accelerate generation
-                    if (cfg->generationPauseTime >= MIN_TV_GEN_PAUSE_TIME + 10)
+                    if (cfg->generationPauseTime >= MIN_TV_GEN_PAUSE_TIME + 100)
                     {
                         pthread_mutex_lock(&cfg_mutex);
-                        cfg->generationPauseTime -= 10;
+                        cfg->generationPauseTime -= 100;
                         pthread_mutex_unlock(&cfg_mutex);
                     }
                     break;
                 case SDLK_z: //decelerate generation
-                    if (cfg->generationPauseTime <= MAX_TV_GEN_PAUSE_TIME - 10)
+                    if (cfg->generationPauseTime <= MAX_TV_GEN_PAUSE_TIME - 100)
                     {
                         pthread_mutex_lock(&cfg_mutex);
-                        cfg->generationPauseTime += 10;
+                        cfg->generationPauseTime += 100;
                         pthread_mutex_unlock(&cfg_mutex);
                     }
                     break;
@@ -129,12 +126,8 @@ void start(Config *cfg, SDL_Window **window, SDL_Renderer *renderer)
     free_sprites(sprites);
     pthread_cancel(tid1);
     pthread_cancel(tid2);
-    pthread_cancel(tid3);
     pthread_mutexattr_destroy(&rd_mutex);
     pthread_mutex_destroy(&cfg_mutex);
-    //free_queue(train_queue1);
-    //free_queue(train_queue2);
-    //free_queue(passengers);
 }
 
 void quit(Config *cfg, SDL_Surface *screen, SDL_Surface *menu)

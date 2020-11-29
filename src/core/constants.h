@@ -10,8 +10,8 @@
 #define FRAME_U_SLEEP 50           // frame is updated each 50 ms => 20 frames / seconds
 #define N_TRAIN_CELL 20            // number of used cell to display train
 #define TV_GEN_PAUSE_TIME 100      // DEFAULT VALUE : a passenger is generated each 500 ms
-#define MAX_WAITING_PASSENGER 15   // max passenger waiting for a train
-#define MIN_TV_GEN_PAUSE_TIME 250  // min speed gen => 1 passenger per 250 ms
+#define MAX_WAITING_PASSENGER 300  // max passenger waiting for a train
+#define MIN_TV_GEN_PAUSE_TIME 100  // min speed gen => 1 passenger per 250 ms
 #define MAX_TV_GEN_PAUSE_TIME 1000 // max speed gen => 1 passenger per second
 #define TRAIN_GATE_SPACING 3       // each 3 train cells there is a gate
 #define TRAIN_RIGHT_STOP_CELL 33   // cell where train comming from left to right stops
